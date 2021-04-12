@@ -1,0 +1,23 @@
+{
+  "name": "reactive-movie-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chris-vill/reactive-movie-library.git"
+  },
+  "keywords": [
+    "react",
+    "tmdb"
+  ],
+  "author": "Christopher Villaran <villaran.christopher@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chris-vill/reactive-movie-library/issues"
+  },
+  "homepage": "https://github.com/chris-vill/reactive-movie-library#readme"
+}
