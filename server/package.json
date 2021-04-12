@@ -1,0 +1,13 @@
+{
+  "name": "reactive-movie-library",
+  "version": "1.0.0",
+  "description": "Server side code of ToDo app",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  }
+}
