@@ -12,6 +12,9 @@
     "type": "git",
     "url": "git+https://github.com/chris-vill/reactive-movie-library.git"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "keywords": [
     "react",
     "tmdb",
