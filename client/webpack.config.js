@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   mode : process.env.NODE_ENV || 'development',
   devtool: 'source-map',
-  entry: resolve('./src/index.js'),
+  entry: pathResolve('./src/index.js'),
   module: {
     rules: [
       {
@@ -52,23 +52,28 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.sass']
+    extensions: ['*', '.js', '.jsx', '.sass'],
+    alias: {
+      "@styles": pathResolve('src/styles/'),
+      "@components": pathResolve('src/components/'),
+      "@core": pathResolve('src/core/')
+    }
   },
   output: {
-    path: resolve('./dist'),
+    path: pathResolve('./dist'),
     filename: 'bundle.js',
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-        template : resolve('./src/index.html')
+        template : pathResolve('./src/index.html')
     })
   ],
   devServer: {
-    contentBase: resolve('./dist'),
+    contentBase: pathResolve('./dist'),
   },
 };
 
-function resolve(dir) {
+function pathResolve(dir) {
   return path.resolve(__dirname, dir);
 }

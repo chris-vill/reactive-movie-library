@@ -4,9 +4,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import './styles/main.sass';
-import { Sample } from './components';
-import TMDB from './core/tmdb';
+import { Sample } from '@components';
+import TMDB from '@core/tmdb';
+import '@styles/reset.sass';
+import '@styles/main.sass';
 
 library.add(fab);
 library.add(far);
@@ -28,7 +29,6 @@ ReactDom.render(
   ),
   document.getElementById("root")
 );
-
 
 /*
   Required
