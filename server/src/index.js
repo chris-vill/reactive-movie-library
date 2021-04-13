@@ -12,6 +12,7 @@ Express()
   .engine('html', require('ejs').renderFile)
   .set('view engine', 'html')
   .get('/', (req, res) => res.render('index.html'))
+  .get('/login', (req, res) => res.redirect('/'))
   .listen(CONSTANTS.PORT, () => {
     console.log(`Server is running on localhost:${ CONSTANTS.PORT }...`);
   });

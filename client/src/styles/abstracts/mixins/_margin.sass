@@ -1,0 +1,29 @@
+=mt($a)
+  margin-top: $a
+
+=mr($a)
+  margin-right: $a
+
+=mb($a)
+  margin-bottom: $a
+
+=ml($a)
+  margin-left: $a
+  
+=my($a, $b: 0)
+  @if $b == 0
+    margin-top: $a
+    margin-bottom: $a
+
+  @else
+    margin-top: $a
+    margin-bottom: $b
+
+=mx($a, $b: 0)
+  @if $b == 0
+    margin-left: $a
+    margin-right: $a
+
+  @else
+    margin-left: $a
+    margin-right: $b

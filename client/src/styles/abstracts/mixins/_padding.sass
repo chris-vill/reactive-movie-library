@@ -1,0 +1,29 @@
+=pt($a)
+  padding-top: $a
+
+=pr($a)
+  padding-right: $a
+
+=pb($a)
+  padding-bottom: $a
+
+=pl($a)
+  padding-left: $a
+  
+=py($a, $b: 0)
+  @if $b == 0
+    padding-top: $a
+    padding-bottom: $a
+
+  @else
+    padding-top: $a
+    padding-bottom: $b
+
+=px($a, $b: 0)
+  @if $b == 0
+    padding-left: $a
+    padding-right: $a
+
+  @else
+    padding-left: $a
+    padding-right: $b

@@ -6,6 +6,10 @@ module.exports = {
   mode : process.env.NODE_ENV || 'development',
   devtool: 'source-map',
   entry: pathResolve('./src/index.js'),
+  watchOptions: {
+    poll: true,
+    ignored: /node_modules/
+  },
   module: {
     rules: [
       {
@@ -29,7 +33,8 @@ module.exports = {
           {
             loader: "sass-loader",
             options: {
-              sourceMap: true
+              sourceMap: true,
+              implementation: require('sass')
             }
           }
         ],
@@ -43,7 +48,8 @@ module.exports = {
           {
             loader: "sass-loader",
             options: {
-              sourceMap: true
+              sourceMap: true,
+              implementation: require('sass')
             }
           }
         ],
@@ -56,6 +62,7 @@ module.exports = {
     alias: {
       "@styles": pathResolve('src/styles/'),
       "@components": pathResolve('src/components/'),
+      "@context": pathResolve('src/context/'),
       "@core": pathResolve('src/core/')
     }
   },

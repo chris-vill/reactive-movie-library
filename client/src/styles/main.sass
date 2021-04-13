@@ -1,27 +1,16 @@
-// RESET =======================================================================
-
+@use '@styles/abstracts' as *
+  
 *
   font-family: Arial, sans-serif
 
 html,
 body,
 #root
-  position: absolute
-  top: 0
-  left: 0
-  bottom: 0
-  right: 0
+  +pos-trbl(absolute, 0, 0, 0, 0)
   margin: 0
-
-ul
-  margin: 0
-  padding: 0
-  list-style-type: none
-
-
-// MAIN =======================================================================
 
 #root
   display: flex
   justify-content: center
   align-items: center
+  +bg-c(rgb(110, 110, 110))

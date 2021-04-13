@@ -1,0 +1,54 @@
+=pos-tl($pos, $a, $b:0)
+  position: $pos
+
+  @if $b == 0
+    top: $a
+    left: $a
+
+  @else
+    top: $a
+    left: $b
+
+=pos-tr($pos, $a, $b:0)
+  position: $pos
+
+  @if $b == 0
+    top: $a
+    right: $a
+
+  @else
+    top: $a
+    right: $b
+
+=pos-br($pos, $a, $b:0)
+  position: $pos
+
+  @if $b == 0
+    bottom: $a
+    right: $a
+
+  @else
+    bottom: $a
+    right: $b
+
+=pos-bl($pos, $a, $b:0)
+  position: $pos
+
+  @if $b == 0
+    bottom: $a
+    left: $a
+
+  @else
+    bottom: $a
+    left: $b
+
+=pos-trbl($pos, $a, $b, $c, $d)
+  position: $pos
+  top: $a
+  right: $b
+  bottom: $c
+  left: $d
+
+=flex-v
+  display: flex
+  flex-direction: column
