@@ -1,17 +1,22 @@
 @use '@styles/abstracts' as *
 
 .login
-  +wh(220px, 360px)
-  +flex-v
-  +bg-c(white)
-  align-items: center
-  padding: 16px
-  border-radius: 8px
-  justify-content: center
+  +pos-trbl(absolute, 0, 0, 0, 0)
+  +bg-c(rgb(110, 110, 110))
+  display: grid
+  place-items: center
+  
+  form
+    +wh(220px, 360px)
+    +flex-v
+    +bg-c(white)
+    align-items: center
+    padding: 16px
+    border-radius: 8px
+    justify-content: center
 
 .login-btn
   +mt(30px)
 
 .username-field
   +mb(16px)
-  

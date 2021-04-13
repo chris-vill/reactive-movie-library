@@ -7,7 +7,7 @@ import TMDB from '@core/tmdb';
 import { LoadingSpinner } from '@components';
 
 const Login = ({ callback, extClass = "" }) => {
-  const [ auth, setAuth ] = useContext(AuthContext);
+  const [ _, setAuth ] = useContext(AuthContext);
   const [ isLoading, setToLoading ] = useState(false);
   const [ fields, setInput ] = useState({
     username: '',
@@ -40,9 +40,11 @@ const Login = ({ callback, extClass = "" }) => {
   }
 
   return (
-    <form className={ classNames(classes["login"], extClass) }>
-      { FormContent }
-    </form>
+    <section className={ classNames(classes["login"], extClass) }>
+      <form>
+        { FormContent }
+      </form>
+    </section>
   );
 }
 

@@ -31,8 +31,20 @@ async function login(credentials) {
   }
 }
 
+async function getMovieList(listType) {
+  try {
+    const { data } = await AXIOS.get(`movie/${ listType }`);
+
+    return data;
+
+  } catch(e) {
+    console.err('Something went wrong.');
+  }
+}
+
 const methods = {
-  login
+  login,
+  getMovieList
 };
 
 export default methods;
