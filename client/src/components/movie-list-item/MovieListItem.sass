@@ -1,11 +1,16 @@
 @use '@styles/abstracts' as *
 
 .movie-list-item
-  +flex-v
   +mr(20px)
   border-radius: 8px
   min-height: 350px
   cursor: pointer
+
+  a
+    +flex-v
+    border-radius: inherit
+    color: $main-font-color
+    text-decoration: none
 
   img
     border-radius: inherit
@@ -15,6 +20,7 @@
     color: rgba(232, 230, 227, 0.6)
 
 .is-loading
+  +flex-v
   +min-wh(150px, 350px)
   justify-content: center
   cursor: auto

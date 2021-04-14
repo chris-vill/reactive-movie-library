@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export function typeOf(data) {
   let type = ({})
     .toString
@@ -35,4 +37,15 @@ export function objectMap(obj, fn) {
 
 export function firstLetterUpperCase(text) {
   return text.replace(/^\w/, letter => letter.toUpperCase());
+}
+
+export function formatDate(dateString, formatString='MMM dd, yyyy') {
+  return format(new Date(dateString), formatString);
+}
+
+export function formatTime(time) {
+  const hours = Math.floor(time / 60);
+  const minutes = time % 60;
+
+  return `${ hours }h ${ minutes }m`
 }

@@ -5,8 +5,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { AuthProvider, AuthContext } from '@context/Auth';
+import { AuthProvider } from '@context/Auth';
+import { MovieCatalogProvider } from '@context/MovieCatalog';
 import { UserConfigProvider } from '@context/UserConfig';
+import { CurrentMovieProvider } from '@context/CurrentMovie';
 import { Home, Login } from '@components';
 import storage from '@core/storage';
 import '@styles/reset';
@@ -21,7 +23,6 @@ library.add(fas);
 // * password = 'jPKCHm&C%S@n!h%4@7G5';
 
 const Main = () => {
-  const [ auth ] = useContext(AuthContext);
   const [ isLoggedIn, setLoggedIn ] = useState(false);
   const history = useHistory();
 
@@ -46,9 +47,13 @@ const Main = () => {
 ReactDom.render(
   <AuthProvider>
   <UserConfigProvider>
+  <MovieCatalogProvider>
+  <CurrentMovieProvider>
   <Router>
     <Main/>
   </Router>
+  </CurrentMovieProvider>
+  </MovieCatalogProvider>
   </UserConfigProvider>
   </AuthProvider>,
   document.getElementById("root")

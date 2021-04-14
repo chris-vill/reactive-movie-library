@@ -7,6 +7,12 @@
     width: $a
     height: $b
 
+=min-w($a)
+  min-width: $a
+
+=min-h($a)
+  min-height: $a
+
 =min-wh($a, $b: "")
   @if $b == ""
     min-width: $a
@@ -15,6 +21,12 @@
   @else
     min-width: $a
     min-height: $b
+
+=max-w($a)
+  max-width: $a
+
+=max-h($a)
+  max-height: $a
 
 =max-wh($a, $b: "")
   @if $b == ""

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useContext, useState, useRef, useCallback } from 'react';
 import classNames from 'classnames';
 import classes from './MovieList.sass';
 import { useMovieList } from '@core/tmdb';

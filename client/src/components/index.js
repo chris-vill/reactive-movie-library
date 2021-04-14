@@ -1,10 +1,12 @@
-import Login from './login/Login.js';
-import Button from './button/Button.js';
-import TextInput from './text-input/TextInput.js';
-import LoadingSpinner from './loading-spinner/LoadingSpinner.js';
-import Home from './home/Home.js';
-import MovieList from './movie-list/MovieList.js';
-import MovieListItem from './movie-list-item/MovieListItem.js';
+import Login from './login/Login';
+import Button from './button/Button';
+import TextInput from './text-input/TextInput';
+import LoadingSpinner from './loading-spinner/LoadingSpinner';
+import Home from './home/Home';
+import MovieList from './movie-list/MovieList';
+import MovieListItem from './movie-list-item/MovieListItem';
+import SearchBar from './search-bar/SearchBar';
+import Movie from './movie/Movie';
 
 export {
   Login,
@@ -13,5 +15,7 @@ export {
   LoadingSpinner,
   Home,
   MovieList,
-  MovieListItem
+  MovieListItem,
+  SearchBar,
+  Movie
 };

@@ -1,13 +1,16 @@
 import axios from 'axios';
+import { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import { ACCESS_TOKEN, API_BASE_URL } from './constants';
+import { MovieCatalogContext } from '@context/MovieCatalog'
 
 const ENDPOINTS = {
   AUTH_TOKEN: 'authentication/token/new',
   VALIDATE_TOKEN: 'authentication/token/validate_with_login',
   SESSION: 'authentication/session/new',
   CONFIGURATION: 'configuration',
-  MOVIE_LIST: 'movie/<list_type>'
+  MOVIE_LIST: 'movie/<list_type>',
+  MOVIE: 'movie/<id>'
 };
 
 const AXIOS = axios.create({
@@ -50,7 +53,27 @@ async function getConfig() {
   }
 }
 
+export function useMovieDetails(id) {
+  const [ movieDetails, setMovieDetails ] = useState({});
+
+  useEffect(async () => {
+    try {
+      const { data } = await AXIOS.get(ENDPOINTS.MOVIE.replace('<id>', id));
+      setMovieDetails(data);
+
+    } catch(e) {
+      console.log('Unable to get additional movie details', e);
+    }
+  }, []);
+
+  return {
+    movieDetails,
+    setMovieDetails
+  }
+}
+
 export function useMovieList(listType, nextPage) {
+  const [ _, setMovieCatalog ] = useContext(MovieCatalogContext);
   const [ movieList, setMovieList ] = useState([]);
   const [ isLoading, setLoading ] = useState(true);
   const [ hasMore, setHasMore ] = useState(false);
@@ -72,6 +95,12 @@ export function useMovieList(listType, nextPage) {
       // For testing loading
       setTimeout(() => {
         setMovieList([ ...movieList,...data.results ]);
+        setMovieCatalog(prev => {
+          return {
+            ...prev,
+            [listType]: [ ...movieList,...data.results ]
+          }
+        });
         setLoading(false);
         setHasMore(data.page < data.total_pages);
       }, 5000);
