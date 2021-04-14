@@ -20,7 +20,7 @@ const MovieListItem = ({ movie, callback, extClass = "" }) => {
     }
 
     return (
-      <Link onClick={ () => { setCurrentMovie(movie) } } to={ `movie/${ id }` }>
+      <Link onClick={ () => { setCurrentMovie(movie) } } to={ `/movie/${ id }` }>
         <img src={ `${ secure_base_url }${ poster_sizes[2] }${ poster_path }` }/>
         <span>{ title }</span>
         { release_date && <span>{ formatDate(release_date) }</span> }
