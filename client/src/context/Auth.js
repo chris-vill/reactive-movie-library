@@ -7,6 +7,14 @@ export const AuthProvider = (props) => {
   const [ auth, setState ] = useState({});
  
   function setAuth(data) {
+
+    // Logout
+    if (!data) {
+      setState({});
+      storage.remove('auth');
+      return
+    }
+
     setState(data);
     storage.set('auth', data);
   }

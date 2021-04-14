@@ -15,6 +15,7 @@ Express()
   .get('/login', (req, res) => res.redirect('/'))
   .get('/home', (req, res) => res.redirect('/'))
   .get('/movie/*', (req, res) => res.redirect('/'))
+  .get('/search/*', (req, res) => res.redirect('/'))
   .listen(CONSTANTS.PORT, () => {
     console.log(`Server is running on localhost:${ CONSTANTS.PORT }...`);
   });

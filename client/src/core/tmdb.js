@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import { ACCESS_TOKEN, API_BASE_URL } from './constants';
-import { MovieCatalogContext } from '@context/MovieCatalog'
+import { MovieCatalogContext } from '@context/MovieCatalog';
+import { AuthContext } from '@context/Auth';
 
 const ENDPOINTS = {
   AUTH_TOKEN: 'authentication/token/new',
@@ -10,8 +11,11 @@ const ENDPOINTS = {
   SESSION: 'authentication/session/new',
   CONFIGURATION: 'configuration',
   MOVIE_LIST: 'movie/<list_type>',
+  SEARCH_MOVIE: 'search/movie',
   MOVIE: 'movie/<id>'
 };
+// const TIME_DELAY = 1000 * 5;
+const TIME_DELAY = 5;
 
 const AXIOS = axios.create({
   baseURL: API_BASE_URL,
@@ -40,6 +44,24 @@ async function login(credentials) {
 
   } catch(e) {
     console.error('Something went wrong, please check your credentials and try again.');
+  }
+}
+
+// * For testing!
+// * username = 'chrisvill';
+// * password = 'jPKCHm&C%S@n!h%4@7G5';
+export function useLogout() {
+  const [ _, setLogout ] = useContext(AuthContext);
+
+  // try {
+  //   setAuth();
+
+  // } catch(e) {
+  //   console.error('Something went wrong', e);
+  // }
+
+  return {
+    setLogout
   }
 }
 
@@ -72,6 +94,48 @@ export function useMovieDetails(id) {
   }
 }
 
+export function useSearchMovie(query, nextPage) {
+  const [ movieList, setMovieList ] = useState([]);
+  const [ isLoading, setLoading ] = useState(true);
+  const [ hasMore, setHasMore ] = useState(false);
+
+  useEffect(async () => {
+    setLoading(true);
+
+    try {
+      const { data } = await AXIOS.get(ENDPOINTS.SEARCH_MOVIE, {
+        params: {
+          page: nextPage,
+          query
+        }
+      });
+      
+      if (!data) {
+        throw new Error('data is undefined.');
+      }
+
+      // For testing loading
+      setTimeout(() => {
+        const newHasMore = data.page < data.total_pages;
+
+        setMovieList([ ...movieList,...data.results ]);
+        setLoading(false);
+        setHasMore(newHasMore);
+      }, TIME_DELAY);
+      
+    } catch(e) {
+      console.error('Unable to get list of movies.', e);
+    }
+
+  }, [ nextPage ]);
+
+  return {
+    movieList,
+    isLoading,
+    hasMore
+  };
+}
+
 export function useMovieList(listType, nextPage) {
   const [ movieCatalog, setMovieCatalog ] = useContext(MovieCatalogContext);
   const {
@@ -86,7 +150,6 @@ export function useMovieList(listType, nextPage) {
 
   useEffect(async () => {
     if (initialLoad && cachedList.length) {
-      console.log("NOOOOOOO");
       setMovieList(cachedList);
       setLoading(false);
       setHasMore(cachedHasMore);
@@ -125,7 +188,7 @@ export function useMovieList(listType, nextPage) {
         });
         setLoading(false);
         setHasMore(newHasMore);
-      }, 5000);
+      }, TIME_DELAY);
       
     } catch(e) {
       console.error('Unable to get list of movies.', e);

@@ -21,7 +21,19 @@ const methods = {
         errorMessage: e
       };
     }
-  }
+  },
+
+  remove(key) {
+    try {
+      localStorage.removeItem(key);
+
+    } catch(e) {
+      console.error(e, ' Something went wrong.');
+      return {
+        errorMessage: e
+      };
+    }
+  },
 };
 
 export default methods;

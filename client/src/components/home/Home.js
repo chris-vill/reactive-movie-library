@@ -1,5 +1,5 @@
 import React, { useContext, useEffect }  from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './Home.sass';
 import { POP_MOVIE, TOP_MOVIE, UPCOMING_MOVIE } from '@core/constants';
@@ -27,7 +27,7 @@ const Home = ({ extClass = "" }) => {
   );
 }
 
-export default Home;
+export default withRouter(Home);
 
 /*
   Required
@@ -36,16 +36,16 @@ export default Home;
   ✅ Movie Spinner
   ✅ Popular movies on home page
   ✅ Move cards (name, poster image, release date, popRating)
-  - Logout
+  ✅ Logout
   ✅ Load more on scroll
   - Responsive design (desktop, mobile, tablet)
   - Filter (year, genre)
-  - Search
+  ✅ Search
   - Sorting
   ✅ Movie View (all details)
   - Favorite list
   
   Nice To Have
-    - Heroku
-    - Jest
+  ✅ Heroku
+  - Jest
 */

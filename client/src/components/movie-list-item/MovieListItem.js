@@ -23,7 +23,7 @@ const MovieListItem = ({ movie, callback, extClass = "" }) => {
       <Link onClick={ () => { setCurrentMovie(movie) } } to={ `movie/${ id }` }>
         <img src={ `${ secure_base_url }${ poster_sizes[2] }${ poster_path }` }/>
         <span>{ title }</span>
-        <span>{ formatDate(release_date) }</span>
+        { release_date && <span>{ formatDate(release_date) }</span> }
         <span>Pop Points: { popularity }</span>
       </Link>
     );

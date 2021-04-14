@@ -8,6 +8,8 @@ import MovieListItem from './movie-list-item/MovieListItem';
 import SearchBar from './search-bar/SearchBar';
 import Movie from './movie/Movie';
 import MainHeader from './main-header/MainHeader';
+import MovieGrid from './movie-grid/MovieGrid';
+import Icon from './icon/Icon';
 
 export {
   Login,
@@ -19,5 +21,7 @@ export {
   MovieListItem,
   SearchBar,
   Movie,
-  MainHeader
+  MainHeader,
+  MovieGrid,
+  Icon
 };

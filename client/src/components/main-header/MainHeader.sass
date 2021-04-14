@@ -1,15 +1,25 @@
 @use '@styles/abstracts' as *
   
 .main-header
-  text-decoration: none
-  color: black
+  +bg-c($primary-color)
+  display: flex
+  align-items: center
 
-  header
-    +bg-c($primary-color)
-    padding: 12px 46px
+  a
+    text-decoration: none
+    color: black
 
-    h1
-      color: $secondary-color
-    
-    h2
-      font-size: 16px
+    header
+      padding: 12px 46px
+
+      h1
+        color: $secondary-color
+      
+      h2
+        font-size: 16px
+
+.logout-btn
+  position: absolute
+  font-size: 28px
+  right: 46px
+  cursor: pointer

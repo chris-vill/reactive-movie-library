@@ -1,26 +1,14 @@
 import React, { useState } from 'react';
 import ReactDom from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 import { AuthProvider } from '@context/Auth';
 import { MovieCatalogProvider } from '@context/MovieCatalog';
 import { UserConfigProvider } from '@context/UserConfig';
 import { CurrentMovieProvider } from '@context/CurrentMovie';
-import { Home, Login, Movie } from '@components';
+import { Home, Login, Movie, MovieGrid } from '@components';
 import storage from '@core/storage';
 import '@styles/reset';
 import '@styles/main';
-
-library.add(fab);
-library.add(far);
-library.add(fas);
-
-// * For testing!
-// * username = 'chrisvill';
-// * password = 'jPKCHm&C%S@n!h%4@7G5';
 
 const Main = () => {
   const [ _, setLoggedIn ] = useState(false);
@@ -38,6 +26,7 @@ const Main = () => {
         render={ () => <Login callback={ setLoggedIn }/> }
       />
       <Route path="/movie/:id" component={ Movie }/>
+      <Route path="/search/:query" component={ MovieGrid }/>
     </Switch>
   );
 };

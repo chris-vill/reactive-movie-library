@@ -14,10 +14,6 @@ const MovieList = ({ text, listType, extClass = "" }) => {
   const { movieList, isLoading, hasMore } = useMovieList(listType, page);
   const observer = useRef();
 
-  // console.log(isLoading);
-  // console.log(hasMore);
-  // console.log(movieList);
-
   const lastMovieRef = useCallback(node => {
     if (isLoading) return;
 
