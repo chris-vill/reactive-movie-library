@@ -2,11 +2,17 @@
 
 .home
   +pos-trbl(absolute, 0)
+
+  & > img
+      +pos-trbl(absolute, 95px, 0, 0, 0)
+      z-index: 0
+      object-fit: none
   
   main
-    +bg-c(#1a1a1a)
+    +bg-c(rgba(26, 26, 26, 0.95))
     +min-h(100%)
     position: relative
     color: $main-font-color
     padding: 12px 46px
+    z-index: 1
     

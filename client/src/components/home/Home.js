@@ -23,6 +23,7 @@ const Home = ({ extClass = "" }) => {
         <MovieList text="Top Rated" listType={ TOP_MOVIE }/>
         <MovieList text="Upcoming" listType={ UPCOMING_MOVIE }/>
       </main>
+      <img src="https://img.17qq.com/images/hjjefjebifz.jpeg"/>
     </div>
   );
 }
