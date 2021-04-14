@@ -5,7 +5,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { AuthProvider, AuthContext } from '@context/auth';
+import { AuthProvider, AuthContext } from '@context/Auth';
+import { UserConfigProvider } from '@context/UserConfig';
 import { Home, Login } from '@components';
 import storage from '@core/storage';
 import '@styles/reset';
@@ -44,9 +45,11 @@ const Main = () => {
 
 ReactDom.render(
   <AuthProvider>
+  <UserConfigProvider>
   <Router>
     <Main/>
   </Router>
+  </UserConfigProvider>
   </AuthProvider>,
   document.getElementById("root")
 );

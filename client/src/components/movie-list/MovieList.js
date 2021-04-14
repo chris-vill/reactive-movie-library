@@ -1,45 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import classNames from 'classnames';
 import classes from './MovieList.sass';
-import TMDB from '@core/tmdb';
-
-/*
-  adult: false
-  backdrop_path: "/inJjDhCjfhh3RtrJWBmmDqeuSYC.jpg"
-  genre_ids: [28, 878]
-  id: 399566
-  original_language: "en"
-  original_title: "Godzilla vs. Kong"
-  overview: "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages."
-  popularity: 7618.712
-  poster_path: "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg"
-  release_date: "2021-03-24"
-  title: "Godzilla vs. Kong"
-  video: false
-  vote_average: 8.4
-  vote_count: 4307
-*/
+import { useMovieList } from '@core/tmdb';
+import { MovieListItem } from '@components';
 
 const MovieList = ({ text, listType, extClass = "" }) => {
-  const [ movieList, setMovieList ] = useState({});
+  const initialList = (new Array(20)).fill(0, 0, 20).map((_, i) => ({ id: i }))
+  const [ page, setPage ] = useState(1);
+  const { movieList, isLoading, hasMore } = useMovieList(listType, page);
+  const observer = useRef();
+  const lastMovieRef = useCallback(node => {
+    if (isLoading) return;
 
-  useEffect(async () => {
-    const response = await TMDB.getMovieList(listType);
+    observer.current && observer.current.disconnect();
 
-    setMovieList(response);
-  }, []);
+    observer.current = new IntersectionObserver(entries => {
+      if (hasMore && entries[0].isIntersecting) {
+        setPage(prev => prev + 1);
+      }
+    });
+    
+    node && observer.current.observe(node);
 
-  const Content = movieList?.results
-    ? <ul> {
-        movieList.results.map(({ title }) => (
-          <li key={ title }>{ title }</li>
-        ))
-      } </ul>
-    : <div>Loading</div>
+  }, [ isLoading, hasMore ]);
 
   return (
     <section className={ classNames(classes["movie-list"], extClass) }>
-      { Content }
+      <header>
+        <h3>{ text }</h3>
+      </header>
+      <ul>
+        {
+          (isLoading ? [...movieList,...initialList] : movieList)
+            .map(movie => <MovieListItem callback={ lastMovieRef } key={ movie.id } movie={ movie }/>)
+        }
+      </ul>
     </section>
   );
 }

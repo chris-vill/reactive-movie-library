@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import classNames from 'classnames';
 import classes from './Login.sass';
 import { Button, TextInput } from '@components';
-import { AuthContext } from '@context/auth';
+import { AuthContext } from '@context/Auth';
 import TMDB from '@core/tmdb';
 import { LoadingSpinner } from '@components';
 

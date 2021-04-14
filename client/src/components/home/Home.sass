@@ -1,9 +1,9 @@
 @use '@styles/abstracts' as *
 
 .home
-  +pos-trbl(absolute, 0, 0, 0, 0)
+  +pos-trbl(absolute, 0)
 
-  header
+  & > header
     +bg-c($primary-color)
     padding: 12px 46px
 
@@ -11,5 +11,6 @@
       color: $secondary-color
   
   main
-    height: 100%
+    +bg-c(#1a1a1a)
+    color: #e8e6e3
     padding: 12px 46px

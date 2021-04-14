@@ -10,8 +10,8 @@
 =pl($a)
   padding-left: $a
   
-=py($a, $b: 0)
-  @if $b == 0
+=py($a, $b: "")
+  @if $b == ""
     padding-top: $a
     padding-bottom: $a
 
@@ -19,8 +19,8 @@
     padding-top: $a
     padding-bottom: $b
 
-=px($a, $b: 0)
-  @if $b == 0
+=px($a, $b: "")
+  @if $b == ""
     padding-left: $a
     padding-right: $a
 

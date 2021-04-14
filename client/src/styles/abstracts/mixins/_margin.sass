@@ -10,8 +10,8 @@
 =ml($a)
   margin-left: $a
   
-=my($a, $b: 0)
-  @if $b == 0
+=my($a, $b: "")
+  @if $b == ""
     margin-top: $a
     margin-bottom: $a
 
@@ -19,8 +19,8 @@
     margin-top: $a
     margin-bottom: $b
 
-=mx($a, $b: 0)
-  @if $b == 0
+=mx($a, $b: "")
+  @if $b == ""
     margin-left: $a
     margin-right: $a
 

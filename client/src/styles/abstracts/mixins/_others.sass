@@ -1,11 +1,29 @@
-=wh($a, $b: 0)
-  @if $b == 0
-    height: $a
+=wh($a, $b: "")
+  @if $b == ""
     width: $a
+    height: $a
 
   @else
-    height: $a
-    width: $b
+    width: $a
+    height: $b
+
+=min-wh($a, $b: "")
+  @if $b == ""
+    min-width: $a
+    min-height: $a
+
+  @else
+    min-width: $a
+    min-height: $b
+
+=max-wh($a, $b: "")
+  @if $b == ""
+    max-width: $a
+    max-height: $a
+
+  @else
+    max-width: $a
+    max-height: $b
 
 =bg-c($a)
   background-color: $a

@@ -1,7 +1,7 @@
-=pos-tl($pos, $a, $b:0)
+=pos-tl($pos, $a, $b: "")
   position: $pos
 
-  @if $b == 0
+  @if $b == ""
     top: $a
     left: $a
 
@@ -9,10 +9,10 @@
     top: $a
     left: $b
 
-=pos-tr($pos, $a, $b:0)
+=pos-tr($pos, $a, $b: "")
   position: $pos
 
-  @if $b == 0
+  @if $b == ""
     top: $a
     right: $a
 
@@ -20,10 +20,10 @@
     top: $a
     right: $b
 
-=pos-br($pos, $a, $b:0)
+=pos-br($pos, $a, $b: "")
   position: $pos
 
-  @if $b == 0
+  @if $b == ""
     bottom: $a
     right: $a
 
@@ -31,7 +31,7 @@
     bottom: $a
     right: $b
 
-=pos-bl($pos, $a, $b:0)
+=pos-bl($pos, $a, $b: "")
   position: $pos
 
   @if $b == 0
@@ -42,12 +42,20 @@
     bottom: $a
     left: $b
 
-=pos-trbl($pos, $a, $b, $c, $d)
+=pos-trbl($pos, $a, $b: "", $c: "", $d: "")
   position: $pos
-  top: $a
-  right: $b
-  bottom: $c
-  left: $d
+
+  @if $b == "" and $c == "" and $d == ""
+    top: $a
+    right: $a
+    bottom: $a
+    left: $a
+  
+  @else
+    top: $a
+    right: $b
+    bottom: $c
+    left: $d
 
 =flex-v
   display: flex
