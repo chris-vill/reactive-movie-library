@@ -7,6 +7,7 @@ import MovieList from './movie-list/MovieList';
 import MovieListItem from './movie-list-item/MovieListItem';
 import SearchBar from './search-bar/SearchBar';
 import Movie from './movie/Movie';
+import MainHeader from './main-header/MainHeader';
 
 export {
   Login,
@@ -17,5 +18,6 @@ export {
   MovieList,
   MovieListItem,
   SearchBar,
-  Movie
+  Movie,
+  MainHeader
 };

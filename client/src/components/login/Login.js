@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './Login.sass';
 import { Button, TextInput } from '@components';
@@ -48,4 +49,4 @@ const Login = ({ callback, extClass = "" }) => {
   );
 }
 
-export default Login;
+export default withRouter(Login);

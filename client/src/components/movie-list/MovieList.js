@@ -1,4 +1,5 @@
-import React, { useContext, useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './MovieList.sass';
 import { useMovieList } from '@core/tmdb';
@@ -39,4 +40,4 @@ const MovieList = ({ text, listType, extClass = "" }) => {
   );
 }
 
-export default MovieList;
+export default withRouter(MovieList);

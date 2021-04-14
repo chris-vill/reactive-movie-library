@@ -1,33 +1,45 @@
 @use '@styles/abstracts' as *
-  
+
 .movie
-  +mt(60px)
-  display: flex
-
-  img:first-child
-    +mr(40px)
-    border-radius: 8px
-
-  img:last-child
-    +pos-tl(absolute, 0)
-    opacity: 0.2
-    z-index: 0
-
-  header
-    +mb(20px)
-    z-index: 1
-    
-    h2
-      font-size: 36px
-      line-height: 42px
-    
-    h3
-      font-size: 18px
-      font-style: italic
-      font-color: rgba(232, 230, 227, 0.6)
+  +pos-trbl(absolute, 0)
   
-  article
-    z-index: 1
+  main
+    +bg-c(#1a1a1a)
+    +min-h(100%)
+    position: relative
+    color: $main-font-color
+    padding: 12px 46px
+  
+    & > section
+      +mt(60px)
+      display: flex
 
-    h4
-      +mb(8px)
+      img:first-child
+        +mr(40px)
+        border-radius: 8px
+        z-index: 1
+
+      img:last-child
+        +pos-tl(absolute, 0)
+        opacity: 0.2
+        z-index: 0
+        width: 100%
+
+      header
+        +mb(20px)
+        z-index: 1
+        
+        h2
+          font-size: 36px
+          line-height: 42px
+        
+        h3
+          font-size: 18px
+          font-style: italic
+          font-color: rgba(232, 230, 227, 0.6)
+
+      article
+        z-index: 1
+
+        h4
+          +mb(8px)

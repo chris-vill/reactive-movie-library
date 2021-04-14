@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useParams, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import { formatDate, formatTime } from '@core/utils';
 import classes from './Movie.sass';
+import { MainHeader } from '@components';
 import { CurrentMovieContext } from '@context/CurrentMovie';
 import { UserConfigContext } from '@context/UserConfig';
 import { useMovieDetails } from '@core/tmdb';
@@ -16,29 +17,33 @@ const Movie = ({ extClass = "" }) => {
   const { title, release_date, runtime, genres, tagline, poster_path, overview, backdrop_path } = allDetails;
   const { images: { secure_base_url, backdrop_sizes } } = userConfig;
 
-  console.log(userConfig);
-  console.log(allDetails);
-
   return (
-    <section className={ classNames(classes["movie"], extClass) }>
-      <img src={ `${ secure_base_url }${ backdrop_sizes[0] }${ poster_path }` }/>
-      <article>
-        <header>
-          <h2>{ title }</h2>
-          <h3>{ tagline }</h3>
-          <div>
-            { release_date && <span>{ formatDate(release_date) }</span> }
-            { genres && <span>{ formatGenres(genres) }</span> }
-            { runtime && <span>{ formatTime(runtime) }</span> }
-          </div>
-        </header>
+    <div className={ classNames(classes["movie"], extClass) }>
+      <MainHeader/>
+      <main>
         <section>
-          <h4>Overview</h4>
-          <p>{ overview }</p>
-        </section>        
-      </article>
-      <img src={ `${ secure_base_url }${ backdrop_sizes[2] }${ backdrop_path }` }/>
-    </section>
+          <img src={ `${ secure_base_url }${ backdrop_sizes[0] }${ poster_path }` }/>
+          <article>
+            <header>
+              <h2>{ title }</h2>
+              <h3>{ tagline }</h3>
+              <div>
+                { release_date && <span>{ formatDate(release_date) }</span> }
+                &nbsp; / &nbsp;
+                { genres && <span>{ formatGenres(genres) }</span> }
+                &nbsp; / &nbsp;
+                { runtime && <span>{ formatTime(runtime) }</span> }
+              </div>
+            </header>
+            <section>
+              <h4>Overview</h4>
+              <p>{ overview }</p>
+            </section>        
+          </article>
+          <img src={ `${ secure_base_url }${ backdrop_sizes[2] }${ backdrop_path }` }/>
+        </section>
+      </main>
+    </div>
   );
 }
 
@@ -46,7 +51,7 @@ function formatGenres(genres) {
   return genres.reduce((genreString, genre) => genreString + genre.name, "");
 }
 
-export default Movie;
+export default withRouter(Movie);
 
 /*
   Sample Movie JSON

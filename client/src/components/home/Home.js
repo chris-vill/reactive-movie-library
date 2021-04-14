@@ -1,10 +1,9 @@
 import React, { useContext, useEffect }  from 'react';
-// import { Route } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './Home.sass';
 import { POP_MOVIE, TOP_MOVIE, UPCOMING_MOVIE } from '@core/constants';
-import { MovieList, Movie } from '@components';
+import { MovieList, Movie, MainHeader } from '@components';
 import { UserConfigContext } from '@context/UserConfig';
 import TMDB from '@core/tmdb';
 
@@ -18,21 +17,11 @@ const Home = ({ extClass = "" }) => {
 
   return (
     <div className={ classNames(classes["home"], extClass) }>
-      <header>
-        <h1>Immense Lowlands</h1>
-        <h2>Immense catalog of movie titles</h2>
-      </header>
+      <MainHeader/>
       <main>
-        <Router>
-          <Switch>
-            <Route exact path="/home">
-              <MovieList text="Popular Movies" listType={ POP_MOVIE }/>
-              <MovieList text="Top Rated" listType={ TOP_MOVIE }/>
-              <MovieList text="Upcoming" listType={ UPCOMING_MOVIE }/>
-            </Route>
-            <Route path="/movie/:id" component={ Movie }/>
-          </Switch>
-        </Router>
+        <MovieList text="Popular Movies" listType={ POP_MOVIE }/>
+        <MovieList text="Top Rated" listType={ TOP_MOVIE }/>
+        <MovieList text="Upcoming" listType={ UPCOMING_MOVIE }/>
       </main>
     </div>
   );
@@ -53,7 +42,7 @@ export default Home;
   - Filter (year, genre)
   - Search
   - Sorting
-  - Movie View (all details)
+  ✅ Movie View (all details)
   - Favorite list
   
   Nice To Have

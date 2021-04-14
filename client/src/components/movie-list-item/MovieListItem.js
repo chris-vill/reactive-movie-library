@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import { formatDate } from '@core/utils';
 import classes from './MovieListItem.sass';
@@ -14,21 +14,17 @@ const MovieListItem = ({ movie, callback, extClass = "" }) => {
   const { images: { secure_base_url, poster_sizes } } = userConfig;
   const isLoading = !title || !secure_base_url || !poster_sizes;
 
-  function onMovieListItemClick() {
-    setCurrentMovie(movie);
-  }
-
   const Content = (() => {
     if (isLoading) {
       return <LoadingSpinner extClass={ classes["spinner"] }/>;
     }
 
     return (
-      <Link onClick={ onMovieListItemClick } to={ `movie/${ id }` }>
+      <Link onClick={ () => { setCurrentMovie(movie) } } to={ `movie/${ id }` }>
         <img src={ `${ secure_base_url }${ poster_sizes[2] }${ poster_path }` }/>
-        <span>{ popularity }</span>
         <span>{ title }</span>
         <span>{ formatDate(release_date) }</span>
+        <span>Pop Points: { popularity }</span>
       </Link>
     );
   })();
@@ -44,4 +40,4 @@ const MovieListItem = ({ movie, callback, extClass = "" }) => {
   }</>);
 }
 
-export default MovieListItem;
+export default withRouter(MovieListItem);
