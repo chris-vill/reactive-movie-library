@@ -73,13 +73,29 @@ export function useMovieDetails(id) {
 }
 
 export function useMovieList(listType, nextPage) {
-  const [ _, setMovieCatalog ] = useContext(MovieCatalogContext);
+  const [ movieCatalog, setMovieCatalog ] = useContext(MovieCatalogContext);
+  const {
+    results: cachedList,
+    hasMore: cachedHasMore
+
+  } = movieCatalog[listType];
   const [ movieList, setMovieList ] = useState([]);
   const [ isLoading, setLoading ] = useState(true);
   const [ hasMore, setHasMore ] = useState(false);
+  const [ initialLoad, setInitialLoad ] = useState(true);
 
   useEffect(async () => {
+    if (initialLoad && cachedList.length) {
+      console.log("NOOOOOOO");
+      setMovieList(cachedList);
+      setLoading(false);
+      setHasMore(cachedHasMore);
+      setInitialLoad(false);
+      return;
+    }
+
     setLoading(true);
+    setInitialLoad(false);
 
     try {
       const { data } = await AXIOS.get(ENDPOINTS.MOVIE_LIST.replace('<list_type>', listType), {
@@ -94,15 +110,21 @@ export function useMovieList(listType, nextPage) {
 
       // For testing loading
       setTimeout(() => {
+        const newHasMore = data.page < data.total_pages;
+
         setMovieList([ ...movieList,...data.results ]);
         setMovieCatalog(prev => {
           return {
             ...prev,
-            [listType]: [ ...movieList,...data.results ]
+            [listType]: {
+              page: data.page,
+              hasMore: newHasMore,
+              results: [ ...movieList,...data.results ]
+            }
           }
         });
         setLoading(false);
-        setHasMore(data.page < data.total_pages);
+        setHasMore(newHasMore);
       }, 5000);
       
     } catch(e) {

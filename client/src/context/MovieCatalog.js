@@ -4,9 +4,21 @@ export const MovieCatalogContext = createContext([]);
 
 export const MovieCatalogProvider = (props) => {
   const initialState = {
-    popular: [],
-    top_rated: [],
-    upcoming: []
+    popular: {
+      page: 1,
+      hasMore: true,
+      results: []
+    },
+    top_rated: {
+      page: 1,
+      hasMore: true,
+      results: []
+    },
+    upcoming: {
+      page: 1,
+      hasMore: true,
+      results: []
+    }
   };
   const [ movieList, setMovieList ] = useState(initialState);
  

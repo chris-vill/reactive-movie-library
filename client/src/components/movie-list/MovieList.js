@@ -1,15 +1,23 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useContext, useState, useRef, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './MovieList.sass';
 import { useMovieList } from '@core/tmdb';
 import { MovieListItem } from '@components';
+import { MovieCatalogContext } from '@context/MovieCatalog';
 
 const MovieList = ({ text, listType, extClass = "" }) => {
   const initialList = (new Array(20)).fill(0, 0, 20).map((_, i) => ({ id: i }))
-  const [ page, setPage ] = useState(1);
+  const [ movieCatalog ] = useContext(MovieCatalogContext);
+  const { page: cachedPage } = movieCatalog[listType];
+  const [ page, setPage ] = useState(cachedPage);
   const { movieList, isLoading, hasMore } = useMovieList(listType, page);
   const observer = useRef();
+
+  // console.log(isLoading);
+  // console.log(hasMore);
+  // console.log(movieList);
+
   const lastMovieRef = useCallback(node => {
     if (isLoading) return;
 
