@@ -10,6 +10,7 @@ import Movie from './movie/Movie';
 import MainHeader from './main-header/MainHeader';
 import MovieGrid from './movie-grid/MovieGrid';
 import Icon from './icon/Icon';
+import Dropdown from './dropdown/Dropdown';
 
 export {
   Login,
@@ -23,5 +24,6 @@ export {
   Movie,
   MainHeader,
   MovieGrid,
-  Icon
+  Icon,
+  Dropdown
 };

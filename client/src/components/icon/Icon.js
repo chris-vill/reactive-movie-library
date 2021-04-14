@@ -12,11 +12,12 @@ library.add(fab);
 library.add(far);
 library.add(fas);
 
-const Icon = ({ iconCode, onClick, extClass = "" }) => {
+const Icon = ({ text, iconCode, onClick, extClass = "" }) => {
 
   return (
     <div className={ classNames(classes["icon"], extClass) } onClick={ onClick }>
       <FontAwesomeIcon icon={ iconCode }/>
+      { text && <span>{ text }</span> }
     </div>
   );
 }

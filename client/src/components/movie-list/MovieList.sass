@@ -5,7 +5,25 @@
 
   & > header
     +mb(12px)
+    display: flex
+
+    h3
+      +mr(12px)
 
   ul
     display: flex
     overflow-x: scroll
+
+.sort-icon
+  +mr(12px)
+  position: relative
+  cursor: pointer
+  top: 3px
+
+.sort-up-icon svg
+  position: relative
+  top: 3px
+
+.sort-down-icon svg
+  position: relative
+  top: -3px

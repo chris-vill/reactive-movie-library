@@ -19,7 +19,7 @@ const SearchBar = (props) => {
   }
 
   return (
-    <TextInput extClass={ classes['.search-bar'] } placeholder="Search for a movie" name="search" value={ query } onChange={ searchBarChange } onKeyDown={ search }/>
+    <TextInput extClass={ classes['search-input'] } placeholder="Search for a movie" name="search" value={ query } onChange={ searchBarChange } onKeyDown={ search }/>
   );
 }
 
