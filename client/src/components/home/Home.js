@@ -41,7 +41,7 @@ export default withRouter(Home);
   - Responsive design (desktop, mobile, tablet)
   - Filter (year, genre)
   ✅ Search
-  - Sorting
+  ✅ Sorting (year, title)
   ✅ Movie View (all details)
   - Favorite list
   
