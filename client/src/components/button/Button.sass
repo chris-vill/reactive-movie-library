@@ -1,9 +1,9 @@
 @use '@styles/abstracts' as *
 
 .button
-  position: relative
-  display: block
-  padding: 12px 24px
+  +relative
+  +block
+  +p(12px, 24px)
   overflow: hidden
   border-width: 0
   outline: none
@@ -19,11 +19,11 @@
     background-color: #27ae60
   
   &:before
-    content: ""
     +pos-tl(absolute, 50%)
-    display: block
-    width: 0
+    +block
+    +w(0)
     +pt(0)
+    content: ""
     border-radius: 100%
     background-color: rgba(236, 240, 241, .3)
     -webkit-transform: translate(-50%, -50%)
@@ -33,5 +33,5 @@
     transform: translate(-50%, -50%)
 
   &:active:before
-    width: 120%
+    +w(120%)
     +pt(120%)

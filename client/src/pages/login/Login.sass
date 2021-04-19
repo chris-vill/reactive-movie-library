@@ -1,17 +1,17 @@
 @use '@styles/abstracts' as *
 
 .login
-  +pos-trbl(absolute, 0)
-  background: url("https://img.17qq.com/images/hjjefjebifz.jpeg") no-repeat center center fixed
-  display: grid
+  +pos-all(absolute, 0)
+  +grid
+  background: url("@assets/movie-background.png") no-repeat center center fixed
   place-items: center
   
   form
-    +wh(360px, 220px)
-    +flex-v
+    +hw(220px, 360px)
+    +f-y
     +bg-c(white)
+    +p(16px)
     align-items: center
-    padding: 16px
     border-radius: 8px
     justify-content: center
     box-shadow: 0px 0px 16px 8px rgba(0, 0, 0, 0.35)

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './Home.sass';
 import { POP_MOVIE, TOP_MOVIE, UPCOMING_MOVIE } from '@core/constants';
-import { MovieList, Movie, MainHeader } from '@components';
+import { MovieList, MainHeader } from '@components';
 import { UserConfigContext } from '@context/UserConfig';
 import TMDB from '@core/tmdb';
 

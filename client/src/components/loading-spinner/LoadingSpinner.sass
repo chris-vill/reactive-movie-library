@@ -3,16 +3,16 @@
 $main-color: rgb(3, 186, 252)
 
 .loading-spinner
-  +wh(80px)
-  display: inline-block
-  position: relative
+  +hw(80px)
+  +in-block
+  +relative
 
   div
-    +wh(64px)
+    +hw(64px)
+    +m(8px)
+    +block
+    +absolute
     box-sizing: border-box
-    display: block
-    position: absolute
-    margin: 8px
     border: 8px solid $main-color
     border-radius: 50%
     animation: loading-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite

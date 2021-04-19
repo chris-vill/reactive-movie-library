@@ -2,7 +2,7 @@
   
 .main-header
   +bg-c($primary-color)
-  display: flex
+  +flex
   align-items: center
 
   a
@@ -10,7 +10,7 @@
     color: black
 
     header
-      padding: 12px 46px
+      +p(12px, 46px)
 
       h1
         color: $secondary-color
@@ -19,7 +19,6 @@
         font-size: 16px
 
 .logout-btn
-  position: absolute
+  +pos-r(absolute, 46px)
   font-size: 28px
-  right: 46px
   cursor: pointer

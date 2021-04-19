@@ -1,3 +1,21 @@
+// All
+=m($args...)
+  $length: length($args)
+  
+  @if $length == 1
+    margin: nth($args, 1)
+  
+  @if $length == 2
+    margin: nth($args, 1), nth($args, 2)
+  
+  @if $length == 3
+    margin: nth($args, 1), nth($args, 2), nth($args, 3)
+      
+  @if $length == 4
+    margin: nth($args, 1), nth($args, 2), nth($args, 3), nth($args, 4)
+
+
+// One Direction
 =mt($a)
   margin-top: $a
 
@@ -9,6 +27,44 @@
 
 =ml($a)
   margin-left: $a
+
+
+// Two Directions
+=mtr($a, $b: "")
+  @if $b == ""
+    margin-top: $a
+    margin-right: $a
+
+  @else
+    margin-top: $a
+    margin-right: $b
+
+=mtl($a, $b: "")
+  @if $b == ""
+    margin-top: $a
+    margin-left: $a
+
+  @else
+    margin-top: $a
+    margin-left: $b
+
+=mbr($a, $b: "")
+  @if $b == ""
+    margin-bottom: $a
+    margin-right: $a
+
+  @else
+    margin-bottom: $a
+    margin-right: $b
+
+=mbl($a, $b: "")
+  @if $b == ""
+    margin-bottom: $a
+    margin-left: $a
+
+  @else
+    margin-bottom: $a
+    margin-left: $b
   
 =my($a, $b: "")
   @if $b == ""

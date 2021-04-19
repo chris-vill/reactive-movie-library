@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/chris-vill/reactive-movie-library/issues"
   },
-  "homepage": "https://github.com/chris-vill/reactive-movie-library#readme"
+  "homepage": "https://github.com/chris-vill/reactive-movie-library#readme",
+  "devDependencies": {
+    "file-loader": "^6.2.0"
+  }
 }

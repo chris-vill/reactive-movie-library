@@ -1,19 +1,19 @@
 @use '@styles/abstracts' as *
 
 .movie-grid
-  +pos-trbl(absolute, 0)
+  +pos-all(absolute, 0)
   
   main
     +bg-c(#1a1a1a)
     +min-h(100%)
-    position: relative
+    +relative
+    +p(12px, 46px)
     color: $main-font-color
-    padding: 12px 46px
 
   h4
     +mb(12px)
   
   ul
-    display: flex
-    flex-wrap: wrap
+    +flex
+    +f-wrap
     

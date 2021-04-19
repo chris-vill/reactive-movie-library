@@ -1,26 +1,15 @@
-=wh($a, $b: "")
-  @if $b == ""
-    width: $a
-    height: $a
+// One Dimension
+=h($a)
+  height: $a
 
-  @else
-    width: $a
-    height: $b
-
-=min-w($a)
-  min-width: $a
+=w($a)
+  width: $a
 
 =min-h($a)
   min-height: $a
 
-=min-wh($a, $b: "")
-  @if $b == ""
-    min-width: $a
-    min-height: $a
-
-  @else
-    min-width: $a
-    min-height: $b
+=min-w($a)
+  min-width: $a
 
 =max-w($a)
   max-width: $a
@@ -28,14 +17,34 @@
 =max-h($a)
   max-height: $a
 
-=max-wh($a, $b: "")
+
+// Two Dimensions
+=hw($a, $b: "")
   @if $b == ""
-    max-width: $a
-    max-height: $a
+    height: $a
+    width: $a
 
   @else
+    height: $a
+    width: $b
+
+=min-hw($a, $b: "")
+  @if $b == ""
+    min-height: $a
+    min-width: $a
+
+  @else
+    min-height: $a
+    min-width: $b
+
+=max-hw($a, $b: "")
+  @if $b == ""
+    max-height: $a
     max-width: $a
-    max-height: $b
+
+  @else
+    max-height: $a
+    max-width: $b
 
 =bg-c($a)
   background-color: $a

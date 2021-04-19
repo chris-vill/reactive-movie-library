@@ -1,18 +1,18 @@
 @use '@styles/abstracts' as *
 
 .home
-  +pos-trbl(absolute, 0)
+  +pos-all(absolute, 0)
 
   & > img
-      +pos-trbl(absolute, 95px, 0, 0, 0)
+      +pos-all(absolute, 95px, 0, 0, 0)
       z-index: 0
       object-fit: none
   
   main
     +bg-c(rgba(26, 26, 26, 0.95))
     +min-h(100%)
-    position: relative
+    +p(12px, 46px)
+    +relative
     color: $main-font-color
-    padding: 12px 46px
     z-index: 1
     

@@ -1,3 +1,21 @@
+// All
+=p($args...)
+  $length: length($args)
+  
+  @if $length == 1
+    padding: nth($args, 1)
+  
+  @if $length == 2
+    padding: nth($args, 1), nth($args, 2)
+  
+  @if $length == 3
+    padding: nth($args, 1), nth($args, 2), nth($args, 3)
+      
+  @if $length == 4
+    padding: nth($args, 1), nth($args, 2), nth($args, 3), nth($args, 4)
+
+
+// One Direction
 =pt($a)
   padding-top: $a
 
@@ -9,7 +27,45 @@
 
 =pl($a)
   padding-left: $a
-  
+
+
+// Two Directions
+=ptr($a, $b: "")
+  @if $b == ""
+    padding-top: $a
+    padding-right: $a
+
+  @else
+    padding-top: $a
+    padding-right: $b
+
+=ptl($a, $b: "")
+  @if $b == ""
+    padding-top: $a
+    padding-left: $a
+
+  @else
+    padding-top: $a
+    padding-left: $b
+
+=pbr($a, $b: "")
+  @if $b == ""
+    padding-bottom: $a
+    padding-right: $a
+
+  @else
+    padding-bottom: $a
+    padding-right: $b
+
+=pbl($a, $b: "")
+  @if $b == ""
+    padding-bottom: $a
+    padding-left: $a
+
+  @else
+    padding-bottom: $a
+    padding-left: $b
+
 =py($a, $b: "")
   @if $b == ""
     padding-top: $a

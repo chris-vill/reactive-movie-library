@@ -38,7 +38,7 @@ module.exports = {
             }
           }
         ],
-        include: /\/components\/.*\.(css|sass)$/
+        include: /\/(components|pages)\/.*\.(css|sass)$/
       },
       {
         test: /\.(css|sass)$/,
@@ -53,7 +53,11 @@ module.exports = {
             }
           }
         ],
-        exclude: /\/components\/.*\.(css|sass)$/
+        exclude: /\/(components|pages)\/.*\.(css|sass)$/
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|ico|svg)$/,
+        loader: 'file-loader'
       }
     ]
   },
@@ -62,7 +66,9 @@ module.exports = {
     alias: {
       "@styles": pathResolve('src/styles/'),
       "@components": pathResolve('src/components/'),
+      "@pages": pathResolve('src/pages/'),
       "@context": pathResolve('src/context/'),
+      "@assets": pathResolve('assets/'),
       "@core": pathResolve('src/core/')
     }
   },

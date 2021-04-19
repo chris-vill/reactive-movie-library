@@ -5,30 +5,27 @@
 
   & > header
     +mb(12px)
-    display: flex
+    +flex
 
     h3
       +mr(12px)
+      +p(0px, 8px)
       background-color: rgba(250,140,3,0.95)
       border-radius: 8px
-      padding: 0px 8px
       color: black
 
   ul
-    display: flex
+    +flex
     overflow-x: scroll
 
 .sort-icon
   +mr(12px)
-  position: relative
+  +pos-t(relative, 3px)
   cursor: pointer
-  top: 3px
   color: rgba(250,140,3,0.95)
 
 .sort-up-icon svg
-  position: relative
-  top: 3px
+  +pos-t(relative, 3px)
 
 .sort-down-icon svg
-  position: relative
-  top: -3px
+  +pos-t(relative, -3px)

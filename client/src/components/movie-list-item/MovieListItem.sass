@@ -4,13 +4,13 @@
   +mr(20px)
   +mb(20px)
   +max-w(185px)
+  +min-h(350px)
   border-radius: 8px
-  min-height: 350px
   cursor: pointer
   background-color: #1a1a1a
 
   a
-    +flex-v
+    +f-y
     border-radius: inherit
     color: $main-font-color
     text-decoration: none
@@ -20,15 +20,15 @@
 
   img
     +mb(6px)
+    +max-w(none)
     border-radius: inherit
-    max-width: none
 
   span:nth-child(4)
     color: rgba(232, 230, 227, 0.6)
 
 .is-loading
-  +flex-v
-  +min-wh(150px, 350px)
+  +f-y
+  +min-hw(350px, 150px)
   justify-content: center
   cursor: auto
 

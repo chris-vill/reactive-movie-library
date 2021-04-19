@@ -1,14 +1,41 @@
-=pos-tl($pos, $a, $b: "")
+// Position Types
+=absolute
+  position: absolute
+
+=relative
+  position: relative
+
+=sticky
+  position: sticky
+
+=fixed
+  position: fixed
+
+
+// For values not specific to position
+=pos($a)
+  position: $a
+
+
+// Position with one direction
+=pos-t($pos, $a)
   position: $pos
+  top: $a
 
-  @if $b == ""
-    top: $a
-    left: $a
+=pos-r($pos, $a)
+  position: $pos
+  right: $a
 
-  @else
-    top: $a
-    left: $b
+=pos-b($pos, $a)
+  position: $pos
+  bottom: $a
 
+=pos-l($pos, $a)
+  position: $pos
+  left: $a
+
+
+// Position with two direction
 =pos-tr($pos, $a, $b: "")
   position: $pos
 
@@ -19,6 +46,17 @@
   @else
     top: $a
     right: $b
+
+=pos-tl($pos, $a, $b: "")
+  position: $pos
+
+  @if $b == ""
+    top: $a
+    left: $a
+
+  @else
+    top: $a
+    left: $b
 
 =pos-br($pos, $a, $b: "")
   position: $pos
@@ -42,7 +80,9 @@
     bottom: $a
     left: $b
 
-=pos-trbl($pos, $a, $b: "", $c: "", $d: "")
+
+// Postion with all directions
+=pos-all($pos, $a, $b: "", $c: "", $d: "")
   position: $pos
 
   @if $b == "" and $c == "" and $d == ""
@@ -56,7 +96,3 @@
     right: $b
     bottom: $c
     left: $d
-
-=flex-v
-  display: flex
-  flex-direction: column

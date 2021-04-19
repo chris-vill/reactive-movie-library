@@ -5,7 +5,7 @@ import { AuthProvider } from '@context/Auth';
 import { MovieCatalogProvider } from '@context/MovieCatalog';
 import { UserConfigProvider } from '@context/UserConfig';
 import { CurrentMovieProvider } from '@context/CurrentMovie';
-import { Home, Login, Movie, MovieGrid } from '@components';
+import { Home, Login, Movie, MovieGrid } from '@pages';
 import storage from '@core/storage';
 import '@styles/reset';
 import '@styles/main';
