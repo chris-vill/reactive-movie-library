@@ -29,3 +29,31 @@
 
 .sort-down-icon svg
   +pos-t(relative, -3px)
+
+.filter
+  +relative
+
+.filter-icon
+  +mr(12px)
+  +pos-t(relative, 3px)
+  cursor: pointer
+  color: rgba(250,140,3,0.95)
+
+.filter-menu
+  +absolute
+  +p(6px, 12px)
+  +f-col
+  +w(92px)
+  z-index: 1
+  background-color: rgba(0,0,0,0.75)
+  border-radius: 6px
+  visibility: hidden
+
+  li
+    cursor: pointer
+
+    &::hover
+      color: rgba(250,140,3,0.95)
+
+.show-filter
+  visibility: visible

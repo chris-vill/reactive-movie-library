@@ -44,12 +44,12 @@ export const MovieCatalogProvider = (props) => {
       const prevFavoriteList = prev[FAVORITE_MOVIE].results;
       const index = prevFavoriteList.reduce((index, { id }, i) => {
         if (movieId === id) {
-          index === i
+          index = i
         }
 
         return index;
       }, 0);
-      prevFavoriteList.splice(index, 1)
+      prevFavoriteList.splice(index, 1);
 
       return {
         ...prev,

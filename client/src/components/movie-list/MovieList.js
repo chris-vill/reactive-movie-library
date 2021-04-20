@@ -7,12 +7,32 @@ import useMovieList from '@hooks/use-movie-list';
 
 const MovieList = ({ text, listType, extClass = "" }) => {
   const { movieList, isLoading, hasMore, nextPage } = useMovieList(listType);
+  const [ showFilter, setShowFilter ] = useState(false);
+  const [ filterBy, setFilterBy ] = useState('');
   const [ sortOption, setSortOption ] = useState({
     sortBy: '',
     sortDirection: 'descending'
   });
   const observer = useRef();
   const lastMovieRef = useCallback(infiniteScrolling, [ isLoading, hasMore ]);
+  const date = new Date();
+
+  const filteredList = !filterBy
+    ? movieList
+    : movieList.filter(movie => {
+        if (!movie.release_date) {
+          return true;
+        }  
+
+        const releaseDate = Number(movie.release_date.match(/^\d{4}/)[0]);
+    
+        if (filterBy === 'this') {
+          return date.getFullYear() === releaseDate;
+    
+        } else {
+          return date.getFullYear() > releaseDate;
+        }
+      });
 
   return (<> {
     !movieList.length
@@ -22,14 +42,37 @@ const MovieList = ({ text, listType, extClass = "" }) => {
             <h3>{ text }</h3> 
             <Icon extClass={ classNames(classes['sort-icon'], classes[`${ updateSortIcon('title') }-icon`]) } text="Title" icon={ `fas-${ updateSortIcon('title') }` } onClick={() => { updateSort('title') }}/>
             <Icon extClass={ classNames(classes['sort-icon'], classes[`${ updateSortIcon('release_date') }-icon`]) } text="Year" icon={ `fas-${ updateSortIcon('release_date') }` } onClick={() => { updateSort('release_date') }}/>
+            <div className={ classes['filter'] }>
+              <Icon extClass={ classes['filter-icon'] } onMouseEnter={ toggleFilterMenu } onMouseLeave={ toggleFilterMenu } text="Year" icon="fas-filter"/>
+              <ul className={ classNames(classes['filter-menu'], showFilter ? classes['show-filter'] : '') } onMouseEnter={ showFilterMenu } onMouseLeave={ hideFilterMenu }>
+                <li onClick={() => { onFilter('this') }}>This Year</li>
+                <li onClick={() => { onFilter('last') }}>Last Year</li>
+              </ul>
+            </div>
           </header>
           <ul> {
-            movieList
+            filteredList
               .sort(applySort)
               .map((movie, i) => <MovieListItem callback={ lastMovieRef } key={ movie.id + i } movie={ movie }/>)
           } </ul>
         </section>
   } </>);
+
+  function showFilterMenu() {
+    setShowFilter(() => true);
+  }
+
+  function hideFilterMenu() {
+    setShowFilter(() => false);
+  }
+
+  function toggleFilterMenu() {
+    setShowFilter(prev => !prev);
+  }
+
+  function onFilter(filterBy) {
+    setFilterBy(filterBy);
+  }
 
   // Infinite Scrolling =====================================
   function infiniteScrolling(node) {

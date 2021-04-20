@@ -38,59 +38,6 @@ const Home = ({ extClass = "" }) => {
 export default withRouter(Home);
 
 /*
-  Requests:
-  * Get auth token
-  * Validate auth token with user creds
-  * Get session
-  * Get config
-  * Get user
-  
-  * Get movie details
-
-  * Get movie list
-  * Search movie
-  * Get favorite movies
-
-  * Set movie as favorite
-  
-
-  Page
-  * Login
-  - Get auth token
-  - Validate auth token with user creds
-  - Get session
-  - Get config
-  - Get user
-
-  * Movie
-  - Get movie details
-  - Set movie as favorite
-  
-  * Movie list
-  - Get movie list
-  - Search movie
-  - Get favorite movies
-
-
-  Context
-  * AuthContext
-  - auth token, session
-
-  * UserContext
-  - user, config
-
-  * MovieCatalogContext
-  - popular, top rated, upcoming, favorite
-  - search movies
-  - set fave
-
-  * MovieContext
-  - movie details
-
-
-*/
-
-/*
   Required
   ✅ Login
   ✅ Login Spinner
@@ -104,7 +51,7 @@ export default withRouter(Home);
   ✅ Search
   ✅ Sorting (year, title)
   ✅ Movie View (all details)
-  - Favorite list
+  ✅ Favorite list
   
   Nice To Have
   ✅ Heroku

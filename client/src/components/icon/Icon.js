@@ -11,17 +11,18 @@ import {
   faSort as farSort,
   faSortUp as farSortUp,
   faSortDown as farSortDown,
-  faHeart as fasHeart
+  faHeart as fasHeart,
+  faFilter as fasFilter
 } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import classes from './Icon.sass';
 
-library.add(farHeart, fasHeart, fasDoorOpen, farSort, farSortUp, farSortDown);
+library.add(farHeart, fasHeart, fasDoorOpen, farSort, farSortUp, farSortDown, fasFilter);
 
-const Icon = ({ text, icon, onClick, extClass = "" }) => {
+const Icon = ({ text, icon, onClick, onMouseEnter, onMouseLeave, extClass = "" }) => {
 
   return (
-    <div className={ classNames(classes["icon"], extClass) } onClick={ onClick }>
+    <div className={ classNames(classes["icon"], extClass) } onMouseEnter={ onMouseEnter } onMouseLeave={ onMouseLeave } onClick={ onClick }>
       <FontAwesomeIcon icon={ getIconCode(icon) }/>
       { text && <span>{ text }</span> }
     </div>
