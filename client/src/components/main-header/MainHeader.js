@@ -3,16 +3,21 @@ import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './MainHeader.sass';
 import { SearchBar, Icon } from '@components/';
-import { UserContext } from '@context/User';
+import { AuthContext } from '@context/Auth';
+import { MovieCatalogContext } from '@context/MovieCatalog';
+import TMDB from '@core/tmdb';
 
 const MainHeader = (props) => {
+  const [ auth, isLoading, setLogout ] = useContext(AuthContext);
+  const [ movieCatalog, setMovieCatalog, addFavorite, removeFavorite, resetMovieCatalog ] = useContext(MovieCatalogContext);
   const { extClass = "" } = props;
-  const [ user ] = useContext(UserContext);
 
-  function onClickLogout() {
-    console.log('LOGOUT');
-    // setLogout();
-    // props.history.push('/login');
+  async function onClickLogout() {
+    const response = await TMDB.logout(auth.session_id);
+    if (response?.success) {
+      resetMovieCatalog();
+      setLogout();
+    }
   }
 
   return (

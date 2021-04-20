@@ -4,7 +4,7 @@ import { FAVORITE_MOVIE } from '@core/constants';
 export const MovieCatalogContext = createContext([]);
 
 export const MovieCatalogProvider = (props) => {
-  const [ movieCatalog, _setMovieCatalog ] = useState({
+  const initialState = {
     popular: {
       page: 1,
       hasMore: true,
@@ -25,7 +25,8 @@ export const MovieCatalogProvider = (props) => {
       hasMore: true,
       results: []
     }
-  });
+  };
+  const [ movieCatalog, _setMovieCatalog ] = useState(initialState);
 
   function addFavorite(movie) {
     _setMovieCatalog(prev => ({
@@ -74,8 +75,12 @@ export const MovieCatalogProvider = (props) => {
     }));
   }
 
+  function resetMovieCatalog() {
+    _setMovieCatalog(prev => initialState);
+  }
+
   return (
-    <MovieCatalogContext.Provider value={[ movieCatalog, setMovieCatalog, addFavorite, removeFavorite ]}>
+    <MovieCatalogContext.Provider value={[ movieCatalog, setMovieCatalog, addFavorite, removeFavorite, resetMovieCatalog ]}>
       { props.children }
     </MovieCatalogContext.Provider>
   )

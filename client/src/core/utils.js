@@ -47,7 +47,7 @@ function baseIsTypeOf() {
   }
 
   type = args.pop();
-  data = args;
+  data = args[0];
   let types = typeof(type) === 'array'
     ? type
     : [ type ];

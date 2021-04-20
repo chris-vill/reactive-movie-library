@@ -13,7 +13,8 @@ const methods = {
 
   get(key) {
     try {
-      return JSON.parse(localStorage.getItem(key) || null);
+      const rawValue = localStorage.getItem(key);
+      return JSON.parse(rawValue === 'undefined' ? null : rawValue);
 
     } catch(e) {
       console.error(e, ' Something went wrong.');

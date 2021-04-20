@@ -138,18 +138,20 @@ async function searchMovie(query, nextPage) {
   }
 }
 
-export function useLogout() {
-  const [ _, setLogout ] = useContext(AuthContext);
+async function logout(session_id) {
+  const DELETE_SESSION = 'authentication/session';
 
-  // try {
-  //   setAuth();
+  try {
+    const { data } = await AXIOS.delete(DELETE_SESSION, {
+      data: {
+        session_id: session_id
+      }
+    });
 
-  // } catch(e) {
-  //   console.error('Something went wrong', e);
-  // }
+    return data;
 
-  return {
-    setLogout
+  } catch(e) {
+    console.error('Something went wrong', e);
   }
 }
 
@@ -178,7 +180,8 @@ const methods = {
   getMovieList,
   getFavorites,
   setFavorite,
-  searchMovie
+  searchMovie,
+  logout
 };
 
 export default methods;

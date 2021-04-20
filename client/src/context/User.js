@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
 import { AuthContext } from '@context/Auth';
 import Storage from '@core/storage';
+import TMDB from '@core/tmdb';
 
 export const UserContext = createContext();
 
@@ -14,6 +15,10 @@ export const UserProvider = (props) => {
   }, [ auth ]);
 
   async function getUser() {
+    if (!auth.session_id) {
+      return
+    }
+
     const storedUser = Storage.get('user');
 
     if (!storedUser) {
