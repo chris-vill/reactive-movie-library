@@ -3,11 +3,11 @@ import classNames from 'classnames';
 import classes from './Dropdown.sass';
 import { Icon } from '@components';
 
-const Dropdown = ({ iconCode, extClass = "" }) => {
+const Dropdown = ({ icon, extClass = "" }) => {
 
   return (
     <div className={ classNames(classes["dropdown"], extClass) }>
-      <Icon iconCode={ iconCode }/>
+      <Icon icon={ icon }/>
       <ul>
         <li>hello</li>
       </ul>

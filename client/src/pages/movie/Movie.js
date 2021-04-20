@@ -5,17 +5,17 @@ import { formatDate, formatTime } from '@core/utils';
 import classes from './Movie.sass';
 import { MainHeader } from '@components';
 import { CurrentMovieContext } from '@context/CurrentMovie';
-import { UserConfigContext } from '@context/UserConfig';
+import { UserContext } from '@context/User';
 import { useMovieDetails } from '@core/tmdb';
 
 const Movie = ({ extClass = "" }) => {
   const { id } = useParams();
   const [ movie ] = useContext(CurrentMovieContext);
-  const [ userConfig ] = useContext(UserConfigContext);
+  const [ user ] = useContext(UserContext);
   const { movieDetails } = useMovieDetails(id);
   const allDetails = {...movie,...movieDetails};
   const { title, release_date, runtime, genres, tagline, poster_path, overview, backdrop_path } = allDetails;
-  const { images: { secure_base_url, backdrop_sizes } } = userConfig;
+  const { images: { secure_base_url, backdrop_sizes } } = user;
 
   return (
     <div className={ classNames(classes["movie"], extClass) }>

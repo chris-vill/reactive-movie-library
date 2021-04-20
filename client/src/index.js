@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ReactDom from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import { AuthProvider } from '@context/Auth';
 import { MovieCatalogProvider } from '@context/MovieCatalog';
-import { UserConfigProvider } from '@context/UserConfig';
+import { UserProvider } from '@context/User';
 import { CurrentMovieProvider } from '@context/CurrentMovie';
+import { AuthContext } from '@context/Auth';
 import { Home, Login, Movie, MovieGrid } from '@pages';
-import storage from '@core/storage';
 import '@styles/reset';
 import '@styles/main';
 
 const Main = () => {
-  const [ _, setLoggedIn ] = useState(false);
+  const [ auth ] = useContext(AuthContext);
   const history = useHistory();
-  const val = storage.get('auth');
 
-  history.push(
-    val ? '/home' : '/login'
-  );
+  useEffect(() => {
+    history.push(
+      auth.success ? '/home' : '/login'
+    );
+
+  }, [auth]);
 
   return (
     <Switch>
+      <Route exact path="/login" component={ Login }/>
       <Route exact path="/home" component={ Home }/>
-      <Route exact path="/login"
-        render={ () => <Login callback={ setLoggedIn }/> }
-      />
       <Route path="/movie/:id" component={ Movie }/>
       <Route path="/search/:query" component={ MovieGrid }/>
     </Switch>
@@ -33,7 +33,7 @@ const Main = () => {
 
 ReactDom.render(
   <AuthProvider>
-  <UserConfigProvider>
+  <UserProvider>
   <MovieCatalogProvider>
   <CurrentMovieProvider>
   <Router>
@@ -41,7 +41,7 @@ ReactDom.render(
   </Router>
   </CurrentMovieProvider>
   </MovieCatalogProvider>
-  </UserConfigProvider>
+  </UserProvider>
   </AuthProvider>,
   document.getElementById("root")
 );

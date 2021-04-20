@@ -20,8 +20,53 @@ export function typeOf(data) {
   }
 }
 
-export function isTypeOf(type, data) {
-  return _data => typeOf(_data) === type;
+/**
+ * NOTE
+ * 
+ * 1 args will return curry function
+ * @param type: string | [string]
+ * 
+ * 2 args
+ * @param data: any
+ * @param type: string | [string]
+ * 
+ * Curry function
+ * @param data: any
+ */
+function baseIsTypeOf() {
+  const args = Array(...arguments);
+  const equals = args.pop();
+  let type, data;
+
+  if (args.length === 1) {
+    type = args[0];
+
+    return _data => equals
+      ? typeOf(_data) === type
+      : typeOf(_data) !== type;
+  }
+
+  type = args.pop();
+  data = args;
+  let types = typeof(type) === 'array'
+    ? type
+    : [ type ];
+
+  return types.some(type => equals
+    ? typeOf(data) === type
+    : typeOf(data) !== type);
+}
+
+export function isNotTypeOf() {
+  const args = Array(...arguments);
+  args.push(false);
+  return baseIsTypeOf(...args);
+}
+
+export function isTypeOf() {
+  const args = Array(...arguments);
+  args.push(true);
+  return baseIsTypeOf(...args);
 }
 
 export function objectMap(obj, fn) {
@@ -48,4 +93,22 @@ export function formatTime(time) {
   const minutes = time % 60;
 
   return `${ hours }h ${ minutes }m`
+}
+
+export function unique(list) {
+  const newList = [];
+
+  list.forEach(item => {
+    const copies = newList.find(newItem => {
+      return Object.keys(newItem).every(prop =>
+        item[prop] === newItem[prop]
+      );
+    });
+
+    if (!copies) {
+      newList.push(item);
+    }
+  });
+
+  return newList;
 }

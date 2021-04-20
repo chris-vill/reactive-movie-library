@@ -2,16 +2,11 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import { ACCESS_TOKEN, API_BASE_URL } from './constants';
-import { MovieCatalogContext } from '@context/MovieCatalog';
 import { AuthContext } from '@context/Auth';
+import storage from '@core/storage';
 
 const ENDPOINTS = {
-  AUTH_TOKEN: 'authentication/token/new',
-  VALIDATE_TOKEN: 'authentication/token/validate_with_login',
-  SESSION: 'authentication/session/new',
-  CONFIGURATION: 'configuration',
   MOVIE_LIST: 'movie/<list_type>',
-  SEARCH_MOVIE: 'search/movie',
   MOVIE: 'movie/<id>'
 };
 // const TIME_DELAY = 1000 * 5;
@@ -26,30 +21,123 @@ const AXIOS = axios.create({
 });
 
 async function login(credentials) {
-  try {
-    const { data: auth } = await AXIOS.get(ENDPOINTS.AUTH_TOKEN);
+  const GET_AUTH_TOKEN = 'authentication/token/new';
+  const POST_VALIDATE_TOKEN = 'authentication/token/validate_with_login';
+  const POST_SESSION = 'authentication/session/new';
 
-    await AXIOS.post(ENDPOINTS.VALIDATE_TOKEN, {
+  try {
+    const { data: auth } = await AXIOS.get(GET_AUTH_TOKEN);
+
+    await AXIOS.post(POST_VALIDATE_TOKEN, {
       request_token: auth.request_token,
       ...credentials
     });
 
-    const { data: session } = await AXIOS.post(ENDPOINTS.SESSION, {
+    const { data: session } = await AXIOS.post(POST_SESSION, {
       request_token: auth.request_token
     });
 
-    return new Promise((resolve, reject) => {
-      resolve({ auth, session });
-    });
+    return { ...auth, ...session };
 
   } catch(e) {
     console.error('Something went wrong, please check your credentials and try again.');
   }
 }
 
-// * For testing!
-// * username = 'chrisvill';
-// * password = 'jPKCHm&C%S@n!h%4@7G5';
+async function getUser(session_id) {
+  const GET_ONFIGURATION = 'configuration';
+  const GET_ACCOUNT = 'account';
+
+  try {
+    const { data: config } = await AXIOS.get(GET_ONFIGURATION);
+    const { data: userData } = await AXIOS.get(GET_ACCOUNT, {
+      params: {
+        session_id
+      }
+    });
+
+    return { ...userData, ...config };
+
+  } catch(e) {
+    console.error('Something went wrong.', e);
+  }
+}
+
+async function getMovieList(listType, nextPage) {
+  const MOVIE_LIST = `movie/${ listType }`;
+
+  try {
+    const { data } = await AXIOS.get(MOVIE_LIST, {
+      params: {
+        page: nextPage
+      }
+    });
+
+    return data;
+    
+  } catch(e) {
+    console.error('Unable to get list of movies.', e);
+  }
+}
+
+async function getFavorites(account_id, session_id) {
+  const GET_FAVORITE = `account/${ account_id }/favorite/movies`
+
+  try {
+    const { data } = await AXIOS.get(GET_FAVORITE, {
+      params: {
+        session_id
+      }
+    });
+
+    return data;
+
+  } catch(e) {
+    console.error('Unable to get list of favorites.', e);
+  }
+}
+
+async function setFavorite({ account_id, session_id, isFavorite, movieId }) {
+  const SET_FAVORITE = `account/${ account_id }/favorite`;
+
+  try {
+    const { data } = await AXIOS.post(
+      SET_FAVORITE,
+      {
+        media_type: 'movie',
+        media_id: movieId,
+        favorite: isFavorite
+      },
+      {
+        params: { session_id }
+      }
+    );
+
+    return data;
+
+  } catch(e) {
+    console.error('Unable to mark as favorite.', e);
+  }
+}
+
+async function searchMovie(query, nextPage) {
+  const SEARCH_MOVIE = 'search/movie';
+
+  try {
+    const { data } = await AXIOS.get(SEARCH_MOVIE, {
+      params: {
+        page: nextPage,
+        query
+      }
+    });
+    
+    return data;
+    
+  } catch(e) {
+    console.error(`Unable to search for ${ query }.`, e);
+  }
+}
+
 export function useLogout() {
   const [ _, setLogout ] = useContext(AuthContext);
 
@@ -62,16 +150,6 @@ export function useLogout() {
 
   return {
     setLogout
-  }
-}
-
-async function getConfig() {
-  try {
-    const { data } = await AXIOS.get(ENDPOINTS.CONFIGURATION);
-    return data;
-
-  } catch(e) {
-    console.error('Something went wrong.');
   }
 }
 
@@ -94,119 +172,13 @@ export function useMovieDetails(id) {
   }
 }
 
-export function useSearchMovie(query, nextPage) {
-  const [ movieList, setMovieList ] = useState([]);
-  const [ isLoading, setLoading ] = useState(true);
-  const [ hasMore, setHasMore ] = useState(false);
-
-  useEffect(async () => {
-    setLoading(true);
-
-    try {
-      const { data } = await AXIOS.get(ENDPOINTS.SEARCH_MOVIE, {
-        params: {
-          page: nextPage,
-          query
-        }
-      });
-      
-      if (!data) {
-        throw new Error('data is undefined.');
-      }
-
-      // For testing loading
-      setTimeout(() => {
-        const newHasMore = data.page < data.total_pages;
-
-        setMovieList([ ...movieList,...data.results ]);
-        setLoading(false);
-        setHasMore(newHasMore);
-      }, TIME_DELAY);
-      
-    } catch(e) {
-      console.error('Unable to get list of movies.', e);
-    }
-
-  }, [ nextPage ]);
-
-  return {
-    movieList,
-    isLoading,
-    hasMore
-  };
-}
-
-export function useMovieList(listType, nextPage) {
-  const [ movieCatalog, setMovieCatalog ] = useContext(MovieCatalogContext);
-  const {
-    results: cachedList,
-    hasMore: cachedHasMore
-
-  } = movieCatalog[listType];
-  const [ movieList, setMovieList ] = useState([]);
-  const [ isLoading, setLoading ] = useState(true);
-  const [ hasMore, setHasMore ] = useState(false);
-  const [ initialLoad, setInitialLoad ] = useState(true);
-
-  useEffect(async () => {
-    if (initialLoad && cachedList.length) {
-      setMovieList(cachedList);
-      setLoading(false);
-      setHasMore(cachedHasMore);
-      setInitialLoad(false);
-      return;
-    }
-
-    setLoading(true);
-    setInitialLoad(false);
-
-    try {
-      const { data } = await AXIOS.get(ENDPOINTS.MOVIE_LIST.replace('<list_type>', listType), {
-        params: {
-          page: nextPage
-        }
-      });
-      
-      if (!data) {
-        throw new Error('data is undefined.');
-      }
-
-      // For testing loading
-      setTimeout(() => {
-        const newHasMore = data.page < data.total_pages;
-
-        setMovieList([ ...movieList,...data.results ]);
-        setMovieCatalog(prev => {
-          return {
-            ...prev,
-            [listType]: {
-              page: data.page,
-              hasMore: newHasMore,
-              results: [ ...movieList,...data.results ]
-            }
-          }
-        });
-        setLoading(false);
-        setHasMore(newHasMore);
-      }, TIME_DELAY);
-      
-    } catch(e) {
-      console.error('Unable to get list of movies.', e);
-    }
-
-  }, [ nextPage ]);
-
-  return {
-    movieList,
-    isLoading,
-    hasMore
-  };
-}
-
 const methods = {
   login,
-  getConfig,
-  useMovieList
+  getUser,
+  getMovieList,
+  getFavorites,
+  setFavorite,
+  searchMovie
 };
 
 export default methods;

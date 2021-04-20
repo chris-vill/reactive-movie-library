@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './MovieGrid.sass';
 import { MainHeader, MovieListItem } from '@components';
-import { useSearchMovie } from '@core/tmdb';
+import useSearchMovie from '@hooks/use-search-movie';
 
 const MovieGrid = ({ extClass = "" }) => {
   const initialList = (new Array(20)).fill(0, 0, 20).map((_, i) => ({ id: i }))

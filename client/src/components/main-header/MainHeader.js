@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import classes from './MainHeader.sass';
 import { SearchBar, Icon } from '@components/';
-import { useLogout } from '@core/tmdb';
+import { UserContext } from '@context/User';
 
 const MainHeader = (props) => {
   const { extClass = "" } = props;
-  const { setLogout } = useLogout();
+  const [ user ] = useContext(UserContext);
 
   function onClickLogout() {
-    setLogout();
-    props.history.push('/login');
+    console.log('LOGOUT');
+    // setLogout();
+    // props.history.push('/login');
   }
 
   return (
@@ -23,7 +24,7 @@ const MainHeader = (props) => {
         </header>
       </Link>
       <SearchBar extClass={ classes["search-bar"] }/>
-      <Icon extClass={ classes['logout-btn'] } iconCode={['fas', 'door-open']} onClick={ onClickLogout }/>
+      <Icon extClass={ classes['logout-btn'] } icon={'fas-door-open'} onClick={ onClickLogout }/>
     </div>
   );
 }

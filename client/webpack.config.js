@@ -57,7 +57,10 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|ico|svg)$/,
-        loader: 'file-loader'
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        }
       }
     ]
   },
@@ -66,6 +69,7 @@ module.exports = {
     alias: {
       "@styles": pathResolve('src/styles/'),
       "@components": pathResolve('src/components/'),
+      "@hooks": pathResolve('src/hooks/'),
       "@pages": pathResolve('src/pages/'),
       "@context": pathResolve('src/context/'),
       "@assets": pathResolve('assets/'),

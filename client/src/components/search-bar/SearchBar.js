@@ -14,12 +14,8 @@ const SearchBar = (props) => {
     props.history.push(`/search/${ query }`);
   }
 
-  function searchBarChange({ target: { value } }) {
-    setQuery(value);
-  }
-
   return (
-    <TextInput extClass={ classes['search-input'] } placeholder="Search a movie..." name="search" value={ query } onChange={ searchBarChange } onKeyDown={ search }/>
+    <TextInput extClass={ classes['search-input'] } placeholder="Search a movie..." name="search" value={ query } onChange={ setQuery } onKeyDown={ search }/>
   );
 }
 

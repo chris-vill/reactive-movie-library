@@ -1,25 +1,37 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from '@fortawesome/fontawesome-svg-core';
+// import { fab } from '@fortawesome/free-brands-svg-icons';
+import {
+  faHeart as farHeart,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faDoorOpen as fasDoorOpen,
+  faSort as farSort,
+  faSortUp as farSortUp,
+  faSortDown as farSortDown,
+  faHeart as fasHeart
+} from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import classes from './Icon.sass';
 
-library.add(fab);
-library.add(far);
-library.add(fas);
+library.add(farHeart, fasHeart, fasDoorOpen, farSort, farSortUp, farSortDown);
 
-const Icon = ({ text, iconCode, onClick, extClass = "" }) => {
+const Icon = ({ text, icon, onClick, extClass = "" }) => {
 
   return (
     <div className={ classNames(classes["icon"], extClass) } onClick={ onClick }>
-      <FontAwesomeIcon icon={ iconCode }/>
+      <FontAwesomeIcon icon={ getIconCode(icon) }/>
       { text && <span>{ text }</span> }
     </div>
   );
+}
+
+function getIconCode(icon) {
+  return icon
+    .split(/-(.+)/)
+    .splice(0,2);
 }
 
 export default withRouter(Icon);

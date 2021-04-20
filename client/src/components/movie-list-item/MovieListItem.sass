@@ -1,6 +1,9 @@
 @use '@styles/abstracts' as *
 
+// 
+  
 .movie-list-item
+  +relative
   +mr(20px)
   +mb(20px)
   +max-w(185px)
@@ -35,3 +38,12 @@
 
 .spinner
   align-self: center
+
+.heart-btn
+  +pos-tr(absolute, 6px, 15px)
+  font-size: 28px
+  color: hsl(339, 88%, 72%)
+  opacity: 0.5
+
+  &:hover
+    opacity: 1

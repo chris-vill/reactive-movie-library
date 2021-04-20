@@ -1,26 +1,26 @@
-import React, { createContext, useState } from 'react';
-import storage from '@core/storage';
+import React, { createContext, useEffect, useState } from 'react';
+import TMDB from '@core/tmdb';
+import Storage from '@core/storage';
 
 export const AuthContext = createContext([]);
 
 export const AuthProvider = (props) => {
-  const [ auth, setState ] = useState({});
- 
-  function setAuth(data) {
+  const storedAuth = Storage.get('auth');
+  const [ auth, setAuth ] = useState(storedAuth || {});
+  const [ isLoading, setLoading ] = useState(false);
 
-    // Logout
-    if (!data) {
-      setState({});
-      storage.remove('auth');
-      return
-    }
+  async function setLogin(credentials) {
+    setLoading(true);
 
-    setState(data);
-    storage.set('auth', data);
+    const response = await TMDB.login(credentials);
+    Storage.set('auth', response);
+    setAuth(response);
+    
+    setLoading(false);
   }
-
+ 
   return (
-    <AuthContext.Provider value={ [ auth, setAuth ] }>
+    <AuthContext.Provider value={ [ auth, isLoading, setLogin ] }>
       { props.children }
     </AuthContext.Provider>
   )
